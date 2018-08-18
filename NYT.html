@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Favorite Movies</title>
+    <style type="text/css">
+        button,
+        div,
+        form,
+        input {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>NYT search</h1>
+
+        <!-- Rendered Buttons will get Dumped Here  -->
+        <div id="buttons-view"></div>
+
+        <form id="search-form">
+            <label for="search-input">Add an article</label>
+            <input type="text" id="search-input">
+            <br>
+
+            <!-- Button triggers new movie to be added -->
+            <input id="add-search" type="submit" value="Add a Search Bro">
+        </form>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            var search =[]
+            $(document).ready(function () {
+                event.preventDefault();
+                var search = $("#search-input").val().trim();
+                
+
+                $.ajax({
+                    url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
+                    method: 'GET',
+                    data: {
+                        apikey: "3b70f75a0fef4ab499530770d1aec039",
+                        q: search,
+                    }
+                }).done(function (response) {
+                    console.log(response);
+                    // var headline = response.docs.headline;
+                    // console.log(headline);
+
+                    // for (var i = 0; i < results.length; i++) {
+                    //     var gifDiv = $("<div class='item'>");
+
+                    //     var rating = results[i].rating;
+
+                    //     var p = $("<p>").text("Rating: " + rating);
+
+                    //     var personImage = $("<img>");
+                    //     personImage.attr("src", results[i].images.fixed_height.url);
+
+                    //     gifDiv.prepend(p);
+                    //     gifDiv.prepend(personImage);
+
+                    //     $("#gifs-appear-here").prepend(gifDiv);
+                    }).fail(function (err) {
+                        throw err;
+                    });
+
+
+
+
+
+
+
+            });
+        </script>
+    </div>
+</body>
+
+</html>
